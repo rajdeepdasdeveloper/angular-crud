@@ -1,0 +1,29 @@
+<h2>User Details</h2>
+<a routerLink="/dashboard">Back to Dashboard</a><br><br>
+<table *ngIf="!showSuccessMessage else successMessage">
+  <tbody>
+    <tr>
+      <td colspan="2"><img [src]="model.avatar"></td>
+    </tr>
+    <tr>
+      <td><b>Name</b></td>  <td>{{ model.first_name }} {{ model.last_name }}</td>
+    </tr>
+    <tr>
+      <td><b>Email</b></td>{{ model.email }}  <td></td>
+    </tr>
+    <tr>
+      <td>
+        <button routerLink="/dashboard/edit/{{model.id}}">Edit</button>
+      </td>
+      <td>
+        <button (click)=deleteUser(model.id)>Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #successMessage>
+  User deleted Successfully
+</ng-template>
+
+<div *ngIf="showFailedMessage">Failed to delete user.</div>

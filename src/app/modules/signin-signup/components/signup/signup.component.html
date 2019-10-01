@@ -1,0 +1,60 @@
+<h2>Sign Up</h2>
+<p><a routerLink="/signin">Sign In</a></p>
+<form *ngIf="!showSuccessMessage else successMessage" name="form" (ngSubmit)="signupForm.form.valid && onSubmit()" #signupForm="ngForm" novalidate>
+  <div class="form-group">
+    <label for="first_name"><b>First Name (Maximum 25 characters)</b></label><br>
+    <input type="text" class="form-control" name="first_name" [(ngModel)]="model.first_name" #first_name="ngModel" [ngClass]="{ 'is-invalid': first_name.invalid }" maxlength="25" minlength="2" pattern="^[a-zA-Z]+$" required />
+    <div *ngIf="first_name.invalid" class="invalid">
+      <div class="error" *ngIf="!first_name.errors.pattern ">
+        <div *ngIf="first_name.dirty &&  first_name.errors.required">First Name is required</div>
+        <div class="error" *ngIf="first_name.errors.minlength">First name is too short.</div>
+        <div class="error" *ngIf="first_name.errors.maxlength ">First name is too long.</div>
+      </div>
+      <div class="error" *ngIf="first_name.errors.pattern ">Invalid first name.</div>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="last_name"><b>Last Name (Maximum 25 characters)</b></label><br>
+    <input type="text" class="form-control" name="last_name" [(ngModel)]="model.last_name" #last_name="ngModel" [ngClass]="{ 'is-invalid': last_name.invalid }" maxlength="25" minlength="2" pattern="^[a-zA-Z]+$" required />
+    <div *ngIf="last_name.invalid" class="invalid-feedback">
+      <div *ngIf="last_name.invalid" class="invalid">
+        <div class="error" *ngIf="!last_name.errors.pattern ">
+          <div *ngIf="last_name.dirty &&  last_name.errors.required">Last Name is required</div>
+          <div class="error" *ngIf="last_name.errors.minlength">Last name is too short.</div>
+          <div class="error" *ngIf="last_name.errors.maxlength ">Last name is too long.</div>
+        </div>
+        <div class="error" *ngIf="last_name.errors.pattern">Invalid last name.</div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="email"><b>Email</b></label><br>
+    <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" [ngClass]="{ 'is-invalid': email.invalid }" required email />
+    <div *ngIf="email.invalid" class="invalid">
+      <div *ngIf="email.dirty && email.errors.required">Email is required</div>
+      <div *ngIf="email.dirty && email.errors.email">Email must be a valid email address</div>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="password"><b>Password</b></label><br>
+    <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" [ngClass]="{ 'is-invalid': password.invalid }" required minlength="6" />
+    <div *ngIf="password.invalid" class="invalid">
+      <div *ngIf="password.dirty && password.errors.required">Password is required</div>
+      <div *ngIf="password.dirty && password.errors.minlength">Password must be at least 6 characters</div>
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    <button [disabled]="signupForm.form.invalid" type="submit">Register</button>
+  </div>
+</form>
+
+<ng-template #successMessage>
+  Registration Successfull. Please wait while we take you to the signup page.
+</ng-template>
+
+<div *ngIf="showFailedMessage">Registration Failed. Please contact support.</div>
+
